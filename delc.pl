@@ -38,22 +38,28 @@ foreach $file (@file_list)
                 }
 	} 
 }
-foreach(@new){ 
-	print "$_\n"; 	
-}
-	print "complete all deletions? [y]: ";
-	
-	$input = <STDIN>; 
-	chomp $input;
- 
-	if($input eq "Y" || $input eq "y"){ 
+print "complete all deletions? [y]: ";
+$input = <STDIN>; 
+chomp $input; 
+if($input eq "Y" || $input eq "y"){  
+	foreach $newt (@new){  	
+  
 		if(scalar @new eq 0){
                         print "Nothing has been deleted\n";
                 }
-		unlink @new; 
+
+		if(-f $newt){ 
+		unlink @new;
+		}
+	
+		if(-d $newt){ 
+			`rm -rf $newt`; 
+		} 
+	}
 	} 
 	else{
 		print "INVALID CHOICE EXITING PROGRAM...\n"; 
 		exit 0;
 	}
+
 
